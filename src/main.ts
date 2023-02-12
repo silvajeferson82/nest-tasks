@@ -6,6 +6,7 @@ import * as hbs from 'hbs';
 import * as methodOverride from 'method-override';
 
 async function bootstrap() {
+  const port = process.env.port || 3000;
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
@@ -14,6 +15,8 @@ async function bootstrap() {
 
   app.use(methodOverride('_method'));
 
-  await app.listen(3000);
+  await app.listen(port, () => {
+    console.log(`Exemple App listening at http://localhost:${port}`);
+  });
 }
 bootstrap();
